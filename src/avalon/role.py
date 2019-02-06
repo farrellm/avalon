@@ -13,7 +13,8 @@ class Role(Enum):
 
 
 def shuffle_roles(n):
-    rp = random.shuffle(list(range(n)))
+    rp = list(range(n))
+    random.shuffle(rp)
     if n == 5:
         return dict(mordred=(rp[0],),
                     morgana=(),
@@ -65,18 +66,18 @@ def shuffle_roles(n):
 
 
 def evil_evils(roles):
-    return (roles.mordred +
-            roles.morgana +
-            roles.assassin +
-            roles.minion)
+    return set(roles['mordred'] +
+               roles['morgana'] +
+               roles['assassin'] +
+               roles['minion'])
 
 
 def make_merlin(roles):
     return dict(role=Role.MERLIN,
                 is_good=True,
-                evils=(roles.morgana +
-                       roles.assassin +
-                       roles.minion),
+                evils=(roles['morgana'] +
+                       roles['assassin'] +
+                       roles['minion']),
                 merlins=())
 
 
@@ -84,8 +85,8 @@ def make_percival(roles):
     return dict(role=Role.PERCIVAL,
                 is_good=True,
                 evils=(),
-                merlins=(roles.merlin +
-                         roles.morgana))
+                merlins=(roles['merlin'] +
+                         roles['morgana']))
 
 
 def make_loyal(roles):
